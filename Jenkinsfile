@@ -1,9 +1,10 @@
 pipeline {
 	agent any
 	stages {
-		stage('Build Deploy') {
+		stage('Build Push') {
 			steps {
-				withCredentials([usernamePassword(credentialsId: "$CREDENTIALS_ID", passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
+				withCredentials([usernamePassword(credentialsId: "$CREDENTIALS_ID", 
+					passwordVariable: 'PASSWORD', usernameVariable: 'USERNAME')]) {
 					sh "docker login --username=$USERNAME --password=$PASSWORD"
 	    			sh "docker build -t $IMAGE_NAME:$env.BUILD_NUMBER ."
 	    			sh "docker push $IMAGE_NAME:$env.BUILD_NUMBER"
@@ -16,7 +17,12 @@ pipeline {
 	post {
     	success {
 	    	build job: 'Deploy SPA component', 
-	    	parameters: [string(name: 'component_NAME', value: 'SPA')], 
+	    		parameters: [string
+		    	(name: 'component_NAME', value: 'spa'),
+		    	(name: 'project_NAME', value: 'app'),
+		    	(name: 'PORTS', value: '4003:4003'),
+		    	(name: 'network_NAME', value: 'mev'),
+		    	],  
 	    	quietPeriod: 0, wait: false
     	}
   	}
