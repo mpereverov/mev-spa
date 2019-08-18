@@ -17,11 +17,11 @@ pipeline {
 	post {
     	success {
 	    	build job: 'Deploy SPA component', 
-	    		parameters: [string
-		    	(name: 'component_NAME', value: 'spa'),
-		    	(name: 'project_NAME', value: 'app'),
-		    	(name: 'PORTS', value: '4003:4003'),
-		    	(name: 'network_NAME', value: 'mev'),
+	    		parameters: [
+		    		string(name: 'component_NAME', value: 'spa'),
+			    	string(name: 'project_NAME', value: 'app'),
+			    	string(name: 'PORTS', value: '4003:4003'),
+			    	string(name: 'network_NAME', value: 'mev'),
 		    	],  
 	    	quietPeriod: 0, wait: false
     	}
