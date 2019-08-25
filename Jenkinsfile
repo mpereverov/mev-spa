@@ -1,3 +1,14 @@
+properties([
+	parameters([
+		string(
+			defaultValue: 'mpereverov/mev-api',
+			description:'Docker Image Name',
+			name: 'IMAGE_NAME',
+			trim: true
+		)
+	])
+])
+
 pipeline {
 	agent any
 	stages {
@@ -14,18 +25,14 @@ pipeline {
 			}
 		}
 	}
-	// post {
- //    	success {
- //    		withCredentials([sshUserPrivateKey(credentialsId: 'aws_id_key', 
- //    			keyFileVariable: 'KEY', passphraseVariable: 'PASSPHRASE', 
- //    			usernameVariable: 'USERNAME')]) {
- //    		build job: 'Deploy_SPA_component', 
-	// 	    	parameters: [
-	// 	    		string(name: 'component_NAME', value: 'spa'),
-	// 		    	string(name: 'project_NAME', value: 'app'),
-	// 	    	],  
-	//     	quietPeriod: 0, wait: false
-	// 		}
- //    	}
- //  	}
+	post {
+    	success {
+    		build job: 'Deploy_SPA_component', 
+		    	parameters: [
+		    		string(name: 'component_NAME', value: 'SPA'),
+		    		string(name: 'img_NAME', value: "$env.IMAGE_NAME"), 
+	    		    string(name: 'img_TAG', value: "$env.BUILD_NUMBER")
+		    	], quietPeriod: 0, wait: false
+    	}
+  	}
 }
