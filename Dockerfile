@@ -1,6 +1,6 @@
 FROM node:12.8.0-alpine
 ENV APP_PORT=4003
-ENV TARGET_URL="http://"{{ container_NAME }}":4004/ping"
+ENV TARGET_URL="http://api:4004/ping"
 COPY ./app /usr/mev-spa
 WORKDIR /usr/mev-spa
 EXPOSE $APP_PORT
