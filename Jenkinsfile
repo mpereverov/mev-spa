@@ -29,7 +29,7 @@ pipeline {
     	success {
     		build job: 'Deploy_SPA_component', 
 		    	parameters: [
-		    		string(name: 'component_NAME', value: 'SPA'),
+		    		string(name: 'component_NAME', value: 'spa'),
 		    		string(name: 'img_NAME', value: "$env.IMAGE_NAME"), 
 	    		    string(name: 'img_TAG', value: "$env.BUILD_NUMBER")
 		    	], quietPeriod: 0, wait: false
