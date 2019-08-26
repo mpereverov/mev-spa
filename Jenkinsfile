@@ -1,7 +1,7 @@
 properties([
 	parameters([
 		string(
-			defaultValue: 'mpereverov/mev-api',
+			defaultValue: 'mpereverov/mev-spa',
 			description:'Docker Image Name',
 			name: 'IMAGE_NAME',
 			trim: true
